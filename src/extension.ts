@@ -1,49 +1,81 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as childProcess from 'child_process';
+import { html, Diff2HtmlConfig } from 'diff2html';
+const downloadFolder = require('os').homedir().split('\\').join('/') + '/Downloads';
+
 
 export function activate(context: vscode.ExtensionContext) {
-	console.log('Congratulations, your extension "diff-saver" is now active!');
-	const workspaceFolders = vscode.workspace.workspaceFolders || [];
-	const repoPath = workspaceFolders[0]?.uri.fsPath;
-	console.log(repoPath);
 	let createFilesDisposable = vscode.commands.registerCommand('diff-saver.compareText', () => {
-		// Create two text files
-		fs.writeFileSync(`${repoPath}/tempFile1.txt`, 'This is file 1 content');
-		fs.writeFileSync(`${repoPath}/tempFile2.txt`, 'This is file 2 content');
-
+		
 		// Open the files in the editor
-		vscode.workspace.openTextDocument(fs.realpathSync(`${repoPath}/tempFile1.txt`)).then((doc) => {
+		vscode.workspace.openTextDocument().then((doc) => {
 			vscode.window.showTextDocument(doc, 1);
 		});
-		vscode.workspace.openTextDocument(fs.realpathSync(`${repoPath}/tempFile2.txt`)).then((doc) => {
+		vscode.workspace.openTextDocument().then((doc) => {
 			vscode.window.showTextDocument(doc, 2);
 		});
 	});
 
-	let runGitDiffDisposable = vscode.commands.registerCommand('diff-saver.saveDiff', () => {
+	let runGitDiffHtmlDisposable = vscode.commands.registerCommand('diff-saver.saveDiffHtml', () => {
+		const timestamp = new Date().toLocaleString().replace(/[/, :]/g, '-');
+		const filesToDelete: string[] = [];
+
 		// Run git diff on the two files
-		childProcess.exec(`git diff --no-index ${repoPath}/tempFile1.txt ${repoPath}/tempFile2.txt`, (error, stdout, stderr) => {
-			if (error) {
-				vscode.window.showErrorMessage('Error running git diff: ' + error.message);
-				return;
+		for (let i = 0; i < vscode.workspace.textDocuments.length ; i++) {
+			const doc = vscode.workspace.textDocuments[i];
+			if (doc.uri.scheme === 'untitled') {
+				const filepath = doc.uri.fsPath;
+				filesToDelete.push(filepath);
+				fs.writeFileSync(filepath, doc.getText());
 			}
-
-			// Save the diff as a .txt file
-			fs.writeFileSync(`~/Downloads/diff.txt`, stdout);
-
+		}
+		childProcess.exec(`git diff ${filesToDelete[0]} ${filesToDelete[1]}`, (error, stdout) => {
+			const diffHtml = html(stdout, {outputFormat: 'side-by-side', drawFileList: false, } as Diff2HtmlConfig);
+			fs.writeFileSync(`${downloadFolder}/${timestamp}temp.html`, `<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/diff2html/bundles/css/diff2html.min.css" />${diffHtml}`);
+			// >> ${downloadFolder}/${timestamp}temp.diff
 			// Delete the two text files
-			fs.unlinkSync(fs.realpathSync(`${repoPath}/tempFile1.txt`));
-			fs.unlinkSync(fs.realpathSync(`${repoPath}/tempFile2.txt`));
+			filesToDelete.forEach((filepath) => {
+				fs.unlinkSync(filepath);
+			});
 
-			vscode.window.showInformationMessage('Git diff saved as diff.txt');
+			vscode.window.showInformationMessage(`Git diff saved as ${timestamp}temp.html file in Downloads Folder`);
 			// Open the diff.txt file in the editor
-			vscode.workspace.openTextDocument(`~/Downloads/diff.txt`).then((doc) => {
+			vscode.workspace.openTextDocument(`${downloadFolder}/${timestamp}temp.html`).then((doc) => {
+				vscode.window.showTextDocument(doc);
+			});
+		});
+	});
+
+	let runGitDiffPatchDisposable = vscode.commands.registerCommand('diff-saver.saveDiffPatch', () => {
+		const timestamp = new Date().toLocaleString().replace(/[/, :]/g, '-');
+		const filesToDelete: string[] = [];
+
+		// Run git diff on the two files
+		for (let i = 0; i < vscode.workspace.textDocuments.length ; i++) {
+			const doc = vscode.workspace.textDocuments[i];
+			if (doc.uri.scheme === 'untitled') {
+				const filepath = doc.uri.fsPath;
+				filesToDelete.push(filepath);
+				fs.writeFileSync(filepath, doc.getText());
+			}
+		}
+		childProcess.exec(`git diff ${filesToDelete[0]} ${filesToDelete[1]} >> ${downloadFolder}/${timestamp}temp.patch`, (error, stdout) => {
+			// >> ${downloadFolder}/${timestamp}temp.diff
+			// Delete the two text files
+			filesToDelete.forEach((filepath) => {
+				fs.unlinkSync(filepath);
+			});
+
+			vscode.window.showInformationMessage(`Git diff saved as ${timestamp}temp.patch file in Downloads Folder`);
+			// Open the diff.txt file in the editor
+			vscode.workspace.openTextDocument(`${downloadFolder}/${timestamp}temp.patch`).then((doc) => {
 				vscode.window.showTextDocument(doc);
 			});
 		});
 	});
 
 	context.subscriptions.push(createFilesDisposable);
-	context.subscriptions.push(runGitDiffDisposable);
+	context.subscriptions.push(runGitDiffHtmlDisposable);
+	context.subscriptions.push(runGitDiffPatchDisposable);
 }

@@ -1,7 +1,12 @@
 {
-  "name": "diff-saver",
-  "displayName": "diff-saver",
-  "description": "",
+  "name": "coles-diff-saver",
+  "displayName": "Cole's Diff Saver",
+  "description": "paste text into untitled files and save as a .png or other file",
+  "repository": {
+    "type": "git",
+    "url": ""},
+  "icon": "/Cole.jpg",
+  "publisher": "ColeFinlayson",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.89.0"
@@ -15,11 +20,15 @@
     "commands": [
       {
         "command": "diff-saver.compareText",
-        "title": "diff-saver.compareText"
+        "title": "Diff Saver: Open Untitled Files to Paste Text"
       },
       {
-        "command": "diff-saver.saveDiff",
-        "title": "diff-saver.saveDiff"
+        "command": "diff-saver.saveDiffHtml",
+        "title": "Diff Saver: Create Shareable .html File in Downloads"
+      },
+      {
+        "command": "diff-saver.saveDiffPatch",
+        "title": "Diff Saver: Create Shareable .patch File in Downloads for uploading to Github"
       }
     ]
   },
@@ -32,14 +41,18 @@
     "test": "vscode-test"
   },
   "devDependencies": {
-    "@types/vscode": "^1.89.0",
+    "@types/hogan.js": "^3.0.5",
     "@types/mocha": "^10.0.6",
     "@types/node": "18.x",
+    "@types/vscode": "^1.89.0",
     "@typescript-eslint/eslint-plugin": "^7.0.2",
     "@typescript-eslint/parser": "^7.0.2",
-    "eslint": "^8.56.0",
-    "typescript": "^5.3.3",
     "@vscode/test-cli": "^0.0.6",
-    "@vscode/test-electron": "^2.3.9"
+    "@vscode/test-electron": "^2.3.9",
+    "eslint": "^8.56.0",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "diff2html": "^3.4.48"
   }
 }
