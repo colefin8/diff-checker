@@ -33,7 +33,6 @@ export function activate(context: vscode.ExtensionContext) {
 		childProcess.exec(`git diff ${filesToDelete[0]} ${filesToDelete[1]}`, (error, stdout) => {
 			const diffHtml = html(stdout, {outputFormat: 'side-by-side', drawFileList: false, } as Diff2HtmlConfig);
 			fs.writeFileSync(`${downloadFolder}/${timestamp}temp.html`, `<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/diff2html/bundles/css/diff2html.min.css" />${diffHtml}`);
-			// >> ${downloadFolder}/${timestamp}temp.diff
 			// Delete the two text files
 			filesToDelete.forEach((filepath) => {
 				fs.unlinkSync(filepath);
@@ -61,7 +60,6 @@ export function activate(context: vscode.ExtensionContext) {
 			}
 		}
 		childProcess.exec(`git diff ${filesToDelete[0]} ${filesToDelete[1]} >> ${downloadFolder}/${timestamp}temp.patch`, (error, stdout) => {
-			// >> ${downloadFolder}/${timestamp}temp.diff
 			// Delete the two text files
 			filesToDelete.forEach((filepath) => {
 				fs.unlinkSync(filepath);

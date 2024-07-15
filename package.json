@@ -1,13 +1,14 @@
 {
-  "name": "coles-diff-saver",
-  "displayName": "Cole's Diff Saver",
-  "description": "paste text into untitled files and save as a .png or other file",
+  "name": "diff-saver",
+  "displayName": "Diff Saver",
+  "description": "paste text into untitled files and save as an .html file or .patch file",
   "repository": {
     "type": "git",
-    "url": ""},
-  "icon": "/Cole.jpg",
+    "url": "https://github.com/colefin8/diff-checker"
+  },
+  "icon": "/git-diff-icon-512x512-bgx2vs18.png",
   "publisher": "ColeFinlayson",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "engines": {
     "vscode": "^1.89.0"
   },
@@ -33,12 +34,13 @@
     ]
   },
   "scripts": {
-    "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
-    "pretest": "npm run compile && npm run lint",
-    "lint": "eslint src --ext ts",
-    "test": "vscode-test"
+    "compile": "npm run check-types && node esbuild.js",
+    "check-types": "tsc --noEmit",
+    "watch": "npm-run-all -p watch:*",
+    "watch:esbuild": "node esbuild.js --watch",
+    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "vscode:prepublish": "npm run package",
+    "package": "npm run check-types && node esbuild.js --production"
   },
   "devDependencies": {
     "@types/hogan.js": "^3.0.5",
@@ -49,6 +51,7 @@
     "@typescript-eslint/parser": "^7.0.2",
     "@vscode/test-cli": "^0.0.6",
     "@vscode/test-electron": "^2.3.9",
+    "esbuild": "^0.21.5",
     "eslint": "^8.56.0",
     "typescript": "^5.3.3"
   },
