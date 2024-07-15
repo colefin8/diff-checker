@@ -3,6 +3,9 @@
   "displayName": "Diff Saver",
   "description": "paste text into untitled files and save as an .html file or .patch file",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/colefin8/diff-checker/issues"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/colefin8/diff-checker"
