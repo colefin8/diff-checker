@@ -30,6 +30,11 @@
   ],
   "badges": [
     {
+      "url": "https://vsmarketplacebadges.dev/version-short/ColeFinlayson.diff-saver.svg",
+      "href": "https://marketplace.visualstudio.com/items?itemName=ColeFinlayson.diff-saver",
+      "description": "Version"
+    },
+    {
       "url": "https://snyk.io/test/github/colefin8/diff-checker/badge.svg",
       "href": "https://snyk.io/test/github/colefin8/diff-checker",
       "description": "Known Vulnerabilities"

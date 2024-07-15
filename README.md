@@ -8,7 +8,8 @@ I suggest opening a new VSCode instance by pressing <kbd>Ctrl</kbd> (<kbd>Cmd</k
 
 In the new instance, press <kbd>Ctrl</kbd> (<kbd>Cmd</kbd>) + <kbd>Shift</kbd> + <kbd>P</kbd> and search for any of the commands below
 
-<img src="https://snyk.io/test/github/colefin8/diff-checker/badge.svg"/>
+![Version Badge](https://vsmarketplacebadges.dev/version-short/ColeFinlayson.diff-saver.svg)
+![Snyk Badge](https://snyk.io/test/github/colefin8/diff-checker/badge.svg)
 
 ## Features
 
