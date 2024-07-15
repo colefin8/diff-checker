@@ -2,6 +2,7 @@
   "name": "diff-saver",
   "displayName": "Diff Saver",
   "description": "paste text into untitled files and save as an .html file or .patch file",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/colefin8/diff-checker"
@@ -13,9 +14,47 @@
     "vscode": "^1.89.0"
   },
   "categories": [
-    "Other"
+    "Other",
+    "Visualization"
   ],
-  "activationEvents": [],
+  "keywords": [
+    "diff",
+    "patch",
+    "compare",
+    "text",
+    "html",
+    "save",
+    "share",
+    "upload",
+    "github"
+  ],
+  "badges": [
+    {
+      "url": "https://vsmarketplacebadge.apphb.com/version-short/ColeFinlayson.diff-saver.svg",
+      "href": "https://marketplace.visualstudio.com/items?itemName=ColeFinlayson.diff-saver",
+      "description": "Version"
+    },
+    {
+      "url": "https://vsmarketplacebadge.apphb.com/downloads-short/ColeFinlayson.diff-saver.svg",
+      "href": "https://marketplace.visualstudio.com/items?itemName=ColeFinlayson.diff-saver",
+      "description": "Downloads"
+    },
+    {
+      "url": "https://vsmarketplacebadge.apphb.com/rating-star/ColeFinlayson.diff-saver.svg",
+      "href": "https://marketplace.visualstudio.com/items?itemName=ColeFinlayson.diff-saver",
+      "description": "Rating"
+    },
+    {
+      "url": "https://vsmarketplacebadge.apphb.com/installs/ColeFinlayson.diff-saver.svg",
+      "href": "https://marketplace.visualstudio.com/items?itemName=ColeFinlayson.diff-saver",
+      "description": "Installs"
+    },
+    {
+      "url": "https://snyk.io/test/github/colefin8/diff-checker/badge.svg",
+      "href": "https://snyk.io/test/github/colefin8/diff-checker",
+      "description": "Known Vulnerabilities"
+    }
+  ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
