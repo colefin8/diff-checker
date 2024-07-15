@@ -8,10 +8,6 @@ I suggest opening a new VSCode instance by pressing <kbd>Ctrl</kbd> (<kbd>Cmd</k
 
 In the new instance, press <kbd>Ctrl</kbd> (<kbd>Cmd</kbd>) + <kbd>Shift</kbd> + <kbd>P</kbd> and search for any of the commands below
 
-<img src="https://vsmarketplacebadge.apphb.com/version-short/ColeFinlayson.diff-saver.svg"/>
-<img src="https://vsmarketplacebadge.apphb.com/downloads-short/ColeFinlayson.diff-saver.svg"/>
-<img src="https://vsmarketplacebadge.apphb.com/rating-star/ColeFinlayson.diff-saver.svg"/>
-<img src="https://vsmarketplacebadge.apphb.com/installs/ColeFinlayson.diff-saver.svg"/>
 <img src="https://snyk.io/test/github/colefin8/diff-checker/badge.svg"/>
 
 ## Features
