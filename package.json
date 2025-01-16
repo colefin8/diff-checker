@@ -83,6 +83,6 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "diff2html": "^3.4.48"
+    "diff2html": "^3.4.51"
   }
 }
